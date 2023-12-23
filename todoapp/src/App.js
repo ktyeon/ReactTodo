@@ -1,6 +1,7 @@
 // Importing necessary dependencies and styles
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
+import firebase from './firebase'; // Update the path based on your project structure
 
 // Main component function
 function App() {
@@ -23,6 +24,8 @@ function App() {
       sequance = 0;
     }
 
+
+
     // Function to handle initial setup of todo list
     const handleSetInit = () => {
       window.localStorage.setItem("todolist", "[]");
@@ -36,6 +39,27 @@ function App() {
     setTodoList(todo);
     setSequance(Number(sequance));
   }, []);
+
+   // Reference to Firebase database
+   const db = firebase.database().ref('todoList');
+
+   // useEffect hook to sync with Firebase on component mount
+   useEffect(() => {
+     // Set up a listener for changes in the todo list
+     db.on('value', (snapshot) => {
+       const data = snapshot.val();
+       if (data) {
+         setTodoList(data.todoList || []);
+         setSequance(data.sequance || null);
+       }
+     });
+ 
+     return () => {
+       // Clean up the listener when the component unmounts
+       db.off();
+     };
+   }, [db]);
+ 
 
   // Function to handle adding a new todo
   const handleTodoAdd = (item) => {
@@ -59,6 +83,10 @@ function App() {
     setTodoList(todo);
     setSequance(sequance + 1);
     refTodoItem.current.value = '';
+
+    // Update Firebase with the new todo list and sequence
+    db.set({ todoList, sequance: sequance + 1 });
+
   };
 
   // Function to handle checking/unchecking a todo
@@ -75,6 +103,10 @@ function App() {
 
     // Update state with the modified todo list
     setTodoList(todo);
+
+    // Update Firebase with the updated todo list
+    db.child('todoList').set(todoList);
+
   };
 
   // Function to handle deleting a todo
@@ -91,6 +123,9 @@ function App() {
 
     // Update state with the filtered todo list
     setTodoList(todo);
+
+    // Update Firebase with the modified todo list
+    db.child('todoList').set(todoList);
   };
 
   // JSX structure for the component

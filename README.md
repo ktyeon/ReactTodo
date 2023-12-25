@@ -28,9 +28,9 @@ npm install
 Start the development server:
 npm start
 
-Open the browser and visit http://localhost:3000. - not yet
+Open the browser and visit http://localhost:3000.
 
-You should now see the to-do list application. Start adding, editing, and removing tasks as needed.
+You should now see the to-do list application. Start adding and removing tasks as needed.
 
 # Contributing
 Contributions are welcome! If you have any suggestions, bug reports, or feature requests, please create an issue or submit a pull request.

@@ -7,8 +7,11 @@ This is a basic to-do list application developed using React. It provides a stra
 
 # Features
 Add Tasks: Easily add new tasks to your to-do list.
+
 Edit Tasks: Modify existing tasks to update their details.
+
 Remove Tasks: Delete completed or unnecessary tasks.
+
 Responsive Design: The application is designed to work seamlessly on various devices and screen sizes.
 
 # Installation
@@ -25,7 +28,7 @@ npm install
 Start the development server:
 npm start
 
-// Open your browser and visit http://localhost:3000. - not yet
+Open the browser and visit http://localhost:3000. - not yet
 
 You should now see the to-do list application. Start adding, editing, and removing tasks as needed.
 
